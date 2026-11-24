@@ -1,0 +1,32 @@
+name: 每日更新表格
+
+on:
+  schedule:
+    - cron: "17 22 * * *"   # 每天香港／台北時間早上 6:17
+  workflow_dispatch:         # 可在 Actions 頁面手動執行
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests beautifulsoup4
+      - name: 抓取官網表格
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: python scraper/scrape.py
+      - name: 儲存結果
+        run: |
+          git config user.name "forms-bot"
+          git config user.email "forms-bot@users.noreply.github.com"
+          git add docs/forms.json
+          git diff --cached --quiet || (git commit -m "更新表格 $(date +%F)" && git push)
