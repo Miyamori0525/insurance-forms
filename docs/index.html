@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1f3a5f">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="表格查詢">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>保險表格查詢</title>
+<style>
+  :root { --ink:#1b2430; --muted:#6b7280; --line:#e4e0d6; --bg:#f6f4ef; --card:#fff; --navy:#1f3a5f; --new:#c2410c; --warn:#b45309; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,"PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif; background:var(--bg); color:var(--ink); }
+  header { position:sticky; top:0; z-index:5; background:var(--navy); color:#fff; padding:calc(env(safe-area-inset-top) + 14px) 16px 12px; }
+  h1 { margin:0 0 10px; font-size:19px; letter-spacing:.5px; }
+  #q { width:100%; font-size:16px; padding:11px 14px; border:0; border-radius:10px; outline:none; }
+  .bar { display:flex; gap:8px; overflow-x:auto; padding:10px 16px; background:var(--bg); border-bottom:1px solid var(--line); position:sticky; top:var(--hh,108px); z-index:4; scrollbar-width:none; }
+  .chip { flex:0 0 auto; border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:999px; padding:7px 13px; font-size:14px; cursor:pointer; }
+  .chip.on { background:var(--navy); border-color:var(--navy); color:#fff; }
+  .chip.recent.on { background:var(--new); border-color:var(--new); }
+  main { max-width:760px; margin:0 auto; padding:10px 12px 40px; }
+  .meta { color:var(--muted); font-size:13px; margin:6px 4px 10px; }
+  .warn { background:#fff7ed; border:1px solid #fed7aa; color:var(--warn); border-radius:10px; padding:10px 12px; font-size:14px; margin-bottom:10px; }
+  .group { font-size:13px; color:var(--muted); margin:18px 4px 6px; font-weight:600; }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:8px; display:flex; gap:12px; align-items:center; }
+  .card .txt { flex:1; min-width:0; }
+  .title { font-size:15.5px; line-height:1.35; word-break:break-word; }
+  .sub { font-size:12.5px; color:var(--muted); margin-top:4px; }
+  .badge { display:inline-block; font-size:11px; font-weight:700; color:#fff; background:var(--new); border-radius:5px; padding:1px 6px; margin-right:5px; vertical-align:2px; }
+  .co { display:inline-block; font-size:11px; color:var(--navy); border:1px solid #c7d2e0; border-radius:5px; padding:0 5px; margin-right:6px; }
+  .btns { display:flex; flex-direction:column; gap:6px; }
+  .btn { font-size:14px; text-decoration:none; text-align:center; border-radius:8px; padding:8px 12px; border:1px solid var(--navy); color:var(--navy); background:#fff; cursor:pointer; white-space:nowrap; }
+  .btn.primary { background:var(--navy); color:#fff; }
+  .empty { text-align:center; color:var(--muted); padding:40px 0; }
+  #toast { position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:#111; color:#fff; padding:9px 16px; border-radius:8px; font-size:14px; opacity:0; transition:.2s; pointer-events:none; }
+</style>
+</head>
+<body>
+<header id="hd">
+  <h1>保險表格查詢</h1>
+  <input id="q" type="search" placeholder="搜尋表格，例如：轉數快、退保、受益人" autocomplete="off">
+</header>
+<div class="bar" id="bar"></div>
+<main>
+  <div id="warn"></div>
+  <div class="meta" id="meta">載入中…</div>
+  <div id="list"></div>
+</main>
+<div id="toast"></div>
+<script>
+const RECENT_DAYS = 30;
+let DATA = { forms: [], sources: [] }, company = "全部", recentOnly = false;
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function isRecent(f) {
+  if (!f.last_changed || f.last_changed === DATA.baseline_date) return false;
+  return (Date.now() - new Date(f.last_changed)) / 864e5 <= RECENT_DAYS;
+}
+
+// 中文關鍵字對應英文表格名稱（官網多為英文標題）
+const SYN = {
+  "轉數快": ["fps", "faster payment"], "退保": ["surrender", "cancel"], "受益人": ["beneficiar"],
+  "理賠": ["claim"], "索償": ["claim"], "賠償": ["claim"], "貸款": ["loan"], "保單貸款": ["policy loan"],
+  "地址": ["address", "contact", "personal particular", "personal detail"], "聯絡": ["contact"],
+  "自動轉賬": ["autopay", "direct debit", "ebankin", "e-bankin"], "直接付款": ["direct debit"],
+  "提取": ["withdrawal"], "轉讓": ["ownership", "assignment", "transfer"], "持有人": ["owner", "policyholder"],
+  "稅務": ["tax", "self-cert", "crs", "fatca"], "身故": ["death"], "危疾": ["critical illness", "major illness"],
+  "住院": ["hospital"], "意外": ["accident"], "門診": ["outpatient"], "醫療": ["medical"],
+  "復效": ["reinstat"], "付款": ["payment"], "繳費": ["premium", "payment"], "保費": ["premium"],
+  "更改": ["change", "amend", "alteration"], "補發": ["duplicate", "reprint", "replacement"],
+  "簽名": ["signature"], "投資": ["investment", "fund", "switch"], "授權": ["authori"], "年金": ["annuity"]
+};
+const termsFor = w => [w, ...Object.entries(SYN).filter(([k]) => k.includes(w) || w.includes(k)).flatMap(([, v]) => v)];
+
+function renderBar() {
+  const names = [...new Set(DATA.forms.map(f => f.company_name))];
+  const nRecent = DATA.forms.filter(isRecent).length;
+  $("bar").innerHTML =
+    `<button class="chip recent ${recentOnly ? "on" : ""}" data-recent>近期更新${nRecent ? " " + nRecent : ""}</button>` +
+    ["全部", ...names].map(n => `<button class="chip ${n === company ? "on" : ""}" data-co="${esc(n)}">${esc(n)}</button>`).join("");
+}
+
+function render() {
+  const words = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  let rows = DATA.forms.filter(f =>
+    (company === "全部" || f.company_name === company) &&
+    (!recentOnly || isRecent(f)) &&
+    words.every(w => {
+      const hay = (f.title + " " + f.category + " " + f.filename + " " + f.company_name).toLowerCase();
+      return termsFor(w).some(t => hay.includes(t));
+    }));
+  if (recentOnly) rows.sort((a, b) => b.last_changed.localeCompare(a.last_changed));
+
+  let html = "", last = "";
+  for (const f of rows) {
+    const g = recentOnly ? "" : f.company_name + "｜" + f.category;
+    if (g && g !== last) { html += `<div class="group">${esc(g)}</div>`; last = g; }
+    html += `<div class="card"><div class="txt">
+        <div class="title">${isRecent(f) ? '<span class="badge">新版</span>' : ""}${esc(f.title)}</div>
+        <div class="sub">${recentOnly ? `<span class="co">${esc(f.company_name)}</span>` : ""}${esc(f.filename)}・更新於 ${esc(f.last_changed)}</div>
+      </div><div class="btns">
+        <a class="btn primary" href="${esc(f.url)}" target="_blank" rel="noopener">開啟</a>
+        <button class="btn" data-share="${esc(f.url)}" data-title="${esc(f.title)}">分享</button>
+      </div></div>`;
+  }
+  $("list").innerHTML = html || `<div class="empty">找不到符合的表格</div>`;
+  $("meta").textContent = `共 ${rows.length} 份・最後檢查：${DATA.generated_at || "—"}`;
+}
+
+async function share(url, title) {
+  if (navigator.share) { try { await navigator.share({ title, url }); } catch (e) {} return; }
+  try { await navigator.clipboard.writeText(url); toast("已複製連結"); } catch (e) { prompt("複製這個連結：", url); }
+}
+function toast(t) { $("toast").textContent = t; $("toast").style.opacity = 1; setTimeout(() => $("toast").style.opacity = 0, 1600); }
+
+document.addEventListener("click", e => {
+  const c = e.target.closest("[data-co]"), r = e.target.closest("[data-recent]"), s = e.target.closest("[data-share]");
+  if (c) { company = c.dataset.co; renderBar(); render(); }
+  if (r) { recentOnly = !recentOnly; renderBar(); render(); }
+  if (s) share(s.dataset.share, s.dataset.title);
+});
+$("q").addEventListener("input", render);
+const fixBar = () => document.documentElement.style.setProperty("--hh", $("hd").offsetHeight + "px");
+addEventListener("resize", fixBar); fixBar();
+
+fetch("forms.json", { cache: "no-store" }).then(r => r.json()).then(d => {
+  DATA = d;
+  const bad = (d.sources || []).filter(s => !s.ok);
+  if (bad.length) $("warn").innerHTML = `<div class="warn">⚠️ ${bad.map(s => esc(s.name)).join("、")} 最近一次更新失敗，顯示的可能不是最新版本，請以官網為準。</div>`;
+  renderBar(); render();
+}).catch(() => { $("meta").textContent = "載入失敗，請檢查網路後重新整理"; });
+
+if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
+</script>
+</body>
+</html>

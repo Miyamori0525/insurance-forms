@@ -1,0 +1,22 @@
+[
+  {
+    "company": "AIA",
+    "name": "友邦 AIA",
+    "pages": ["https://www.aia.com.hk/en/help-and-support/forms-individuals"],
+    "exclude": ["sample"],
+    "path_categories": {
+      "/claims/": "理賠",
+      "/policy-administration/": "保單行政",
+      "/premium-collection/": "保費繳付",
+      "/mpf": "強積金／退休金",
+      "/group": "團體保險"
+    }
+  },
+  {
+    "company": "CTF",
+    "name": "周大福人壽",
+    "pages": ["https://www.ctflife.com.hk/en/support/download"],
+    "exclude": ["/products/", "brochure", "user_guide", "user-guide"],
+    "path_categories": {}
+  }
+]
