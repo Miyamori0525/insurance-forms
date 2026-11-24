@@ -58,6 +58,8 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt
 
 function isRecent(f) {
   if (!f.last_changed || f.last_changed === DATA.baseline_date) return false;
+  // 新加入的公司：加入當天收錄的表格不算「新版」
+  if (f.last_changed === (DATA.company_baseline || {})[f.company]) return false;
   return (Date.now() - new Date(f.last_changed)) / 864e5 <= RECENT_DAYS;
 }
 

@@ -2,8 +2,12 @@
   {
     "company": "AIA",
     "name": "友邦 AIA",
-    "pages": ["https://www.aia.com.hk/zh-hk/help-and-support/forms-individuals"],
-    "exclude": ["sample"],
+    "pages": [
+      "https://www.aia.com.hk/zh-hk/help-and-support/forms-individuals"
+    ],
+    "exclude": [
+      "sample"
+    ],
     "path_categories": {
       "/claims/": "賠償",
       "/policy-administration/": "保單管理",
@@ -28,11 +32,279 @@
   {
     "company": "CTF",
     "name": "周大福人壽",
-    "pages": ["https://www.ctflife.com.hk/tc/support/download"],
-    "exclude": ["/products/", "brochure", "guide", "faq"],
+    "pages": [
+      "https://www.ctflife.com.hk/tc/support/download"
+    ],
+    "exclude": [
+      "/products/",
+      "brochure",
+      "guide",
+      "faq"
+    ],
     "path_categories": {},
     "category_map": {
       "繳付服務": "保費繳付"
     }
+  },
+  {
+    "company": "PRU",
+    "name": "保誠",
+    "pages": [
+      "https://www.prudential.com.hk/tc/claims-and-services/tools/download-library/"
+    ],
+    "exclude": [
+      "/guide/",
+      "sample"
+    ],
+    "title_from_previous": true,
+    "category_heading_class": "cmp-tabs__tabpanel-title",
+    "path_categories": {},
+    "category_map": {
+      "一般保險保單服務": "一般保險",
+      "一般保險理賠": "一般保險",
+      "人壽及健康保險理賠": "賠償",
+      "保單服務": "保單管理",
+      "危疾保險理賠申請書第二部份 (醫療報告)": "賠償"
+    },
+    "title_rules": [
+      {
+        "match": "稅務居民|自我證明|自證證明|稅收合規|稅收遵從|FATCA|CRS|Taxpayer|Tax Withholding|非金融外國實體|非營利組織聲明|美國地址",
+        "to": "稅務申報"
+      },
+      {
+        "match": "直接付款授權|自動轉帳|自動轉賬|信用卡付款授權|第三者付款|電滙|保費繳付|繳付保費|保費預存|繳費指示|付款方式",
+        "to": "保費繳付",
+        "from": [
+          "保單管理"
+        ]
+      },
+      {
+        "match": "索償|賠償|理賠",
+        "to": "賠償",
+        "from": [
+          "保單管理"
+        ]
+      }
+    ]
+  },
+  {
+    "company": "MANULIFE",
+    "name": "宏利",
+    "pages": [
+      "https://www.manulife.com.hk/zh-hk/individual/services/form-library.html"
+    ],
+    "browser": "headed",
+    "tabpanel_category": true,
+    "exclude": [
+      "macau",
+      "macao",
+      "-mo.pdf",
+      "user-guide",
+      "product-key-facts"
+    ],
+    "path_categories": {},
+    "category_map": {
+      "保單管理": "保單管理",
+      "基金管理": "投資相連",
+      "外國帳戶稅收遵從法": "稅務申報",
+      "強積金／職業退休計劃／澳門退休金": "強積金／退休計劃",
+      "索賠": "賠償"
+    },
+    "title_rules": [
+      {
+        "match": "稅務居民|自我證明|自證證明|稅收合規|稅收遵從|FATCA|CRS|Taxpayer|Tax Withholding|非金融外國實體|非營利組織聲明|美國地址",
+        "to": "稅務申報"
+      },
+      {
+        "match": "直接付款授權|自動轉帳|自動轉賬|信用卡付款授權|第三者付款|電滙|保費繳付|繳付保費|保費預存|繳費指示|付款方式",
+        "to": "保費繳付",
+        "from": [
+          "保單管理"
+        ]
+      },
+      {
+        "match": "索償|賠償|理賠",
+        "to": "賠償",
+        "from": [
+          "保單管理"
+        ]
+      }
+    ]
+  },
+  {
+    "company": "GENERALI",
+    "name": "忠意",
+    "pages": [
+      "https://www.generali.com.hk/ZH_HK/claims_and_support/form"
+    ],
+    "browser": "headless",
+    "wait_ms": 6000,
+    "category_ancestor_class": "sub_content",
+    "exclude": [],
+    "path_categories": {},
+    "category_map": {
+      "個人人壽保險 - 保單服務表格": "保單管理",
+      "個人人壽保險 - 索償表格": "賠償",
+      "個人醫療保險 - 保單服務表格": "保單管理",
+      "個人醫療保險- 索償表格": "賠償",
+      "個人醫療保險 - 索償表格": "賠償",
+      "個人一般保險 - 索償表格": "一般保險",
+      "企業保險 - 索償表格": "團體保險"
+    },
+    "title_rules": [
+      {
+        "match": "稅務居民|自我證明|自證證明|稅收合規|稅收遵從|FATCA|CRS|Taxpayer|Tax Withholding|非金融外國實體|非營利組織聲明|美國地址",
+        "to": "稅務申報"
+      },
+      {
+        "match": "直接付款授權|自動轉帳|自動轉賬|信用卡付款授權|第三者付款|電滙|保費繳付|繳付保費|保費預存|繳費指示|付款方式",
+        "to": "保費繳付",
+        "from": [
+          "保單管理"
+        ]
+      },
+      {
+        "match": "索償|賠償|理賠",
+        "to": "賠償",
+        "from": [
+          "保單管理"
+        ]
+      }
+    ]
+  },
+  {
+    "company": "HSBC",
+    "name": "滙豐人壽",
+    "pages": [
+      "https://www.hsbc.com.hk/zh-hk/insurance/forms/"
+    ],
+    "include_categories": [
+      "保單管理",
+      "賠償"
+    ],
+    "exclude": [
+      "/booklets/"
+    ],
+    "path_categories": {},
+    "category_map": {
+      "保單服務表格": "保單管理",
+      "索償表格": "賠償"
+    },
+    "title_rules": [
+      {
+        "match": "稅務居民|自我證明|自證證明|稅收合規|稅收遵從|FATCA|CRS|Taxpayer|Tax Withholding|非金融外國實體|非營利組織聲明|美國地址",
+        "to": "稅務申報"
+      },
+      {
+        "match": "直接付款授權|自動轉帳|自動轉賬|信用卡付款授權|第三者付款|電滙|保費繳付|繳付保費|保費預存|繳費指示|付款方式",
+        "to": "保費繳付",
+        "from": [
+          "保單管理"
+        ]
+      },
+      {
+        "match": "索償|賠償|理賠",
+        "to": "賠償",
+        "from": [
+          "保單管理"
+        ]
+      }
+    ]
+  },
+  {
+    "company": "FWD",
+    "name": "富衛",
+    "pages": [
+      {"url": "https://www.fwd.com.hk/zh/support/", "category": "保費繳付"},
+      {"url": "https://www.fwd.com.hk/zh/support/policy-management/", "category": "保單管理"},
+      {"url": "https://www.fwd.com.hk/zh/claims-details/medical-insurance/", "category": "賠償"},
+      {"url": "https://www.fwd.com.hk/zh/claims-details/critical-Illness-claims/", "category": "賠償"},
+      {"url": "https://www.fwd.com.hk/zh/claims-details/accident-insurance/", "category": "賠償"},
+      {"url": "https://www.fwd.com.hk/zh/claims-details/permanent-disability/", "category": "賠償"},
+      {"url": "https://www.fwd.com.hk/zh/claims-details/death/", "category": "賠償"}
+    ],
+    "browser": "headless",
+    "click": "button[role=tab]",
+    "exclude": [],
+    "path_categories": {},
+    "category_map": {},
+    "title_rules": [
+      {
+        "match": "稅務居民|自我證明|自證證明|稅收合規|稅收遵從|FATCA|CRS|Taxpayer|Tax Withholding|非金融外國實體|非營利組織聲明|美國地址",
+        "to": "稅務申報"
+      },
+      {
+        "match": "直接付款授權|自動轉帳|自動轉賬|信用卡付款授權|第三者付款|電滙|保費繳付|繳付保費|保費預存|繳費指示|付款方式",
+        "to": "保費繳付",
+        "from": [
+          "保單管理"
+        ]
+      },
+      {
+        "match": "索償|賠償|理賠",
+        "to": "賠償",
+        "from": [
+          "保單管理"
+        ]
+      }
+    ]
+  },
+  {
+    "company": "AXA",
+    "name": "安盛 AXA",
+    "pages": [
+      {"url": "https://www.axa.com.hk/zh/downloads/frequently-used-forms/details", "category": "常用表格"},
+      {"url": "https://www.axa.com.hk/zh/downloads/life-and-savings/details", "category": "人壽及儲蓄保險"},
+      {"url": "https://www.axa.com.hk/zh/downloads/critical-illness/details", "category": "危疾保險"},
+      {"url": "https://www.axa.com.hk/zh/downloads/medical/details", "category": "醫療保險"},
+      {"url": "https://www.axa.com.hk/zh/downloads/accident-and-disability/details", "category": "意外及傷病"},
+      {"url": "https://www.axa.com.hk/zh/downloads/investment/details", "category": "投資"},
+      {"url": "https://www.axa.com.hk/zh/downloads/general-insurance/details", "category": "一般保險"},
+      {"url": "https://www.axa.com.hk/zh/downloads/employee-benefits/details", "category": "僱員福利"}
+    ],
+    "require_form_word": true,
+    "exclude": [
+      "説明書",
+      "說明書",
+      "小冊子",
+      "單張",
+      "保費表",
+      "名單",
+      "條款及細則",
+      "服務簡介",
+      "注意事項",
+      "brochure"
+    ],
+    "path_categories": {},
+    "category_map": {
+      "常用表格": "保單管理",
+      "人壽及儲蓄保險": "保單管理",
+      "危疾保險": "賠償",
+      "醫療保險": "賠償",
+      "意外及傷病": "賠償",
+      "投資": "投資相連",
+      "一般保險": "一般保險",
+      "僱員福利": "團體保險"
+    },
+    "title_rules": [
+      {
+        "match": "稅務居民|自我證明|自證證明|稅收合規|稅收遵從|FATCA|CRS|Taxpayer|Tax Withholding|非金融外國實體|非營利組織聲明|美國地址",
+        "to": "稅務申報"
+      },
+      {
+        "match": "直接付款授權|自動轉帳|自動轉賬|信用卡付款授權|第三者付款|電滙|保費繳付|繳付保費|保費預存|繳費指示|付款方式",
+        "to": "保費繳付",
+        "from": [
+          "保單管理"
+        ]
+      },
+      {
+        "match": "索償|賠償|理賠",
+        "to": "賠償",
+        "from": [
+          "保單管理"
+        ]
+      }
+    ]
   }
 ]
