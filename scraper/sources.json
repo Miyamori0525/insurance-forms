@@ -2,21 +2,37 @@
   {
     "company": "AIA",
     "name": "友邦 AIA",
-    "pages": ["https://www.aia.com.hk/en/help-and-support/forms-individuals"],
+    "pages": ["https://www.aia.com.hk/zh-hk/help-and-support/forms-individuals"],
     "exclude": ["sample"],
     "path_categories": {
-      "/claims/": "理賠",
-      "/policy-administration/": "保單行政",
+      "/claims/": "賠償",
+      "/policy-administration/": "保單管理",
       "/premium-collection/": "保費繳付",
-      "/mpf": "強積金／退休金",
+      "/premium-payment-channels/": "保費繳付",
+      "/mpf": "強積金／退休計劃",
+      "/orso": "強積金／退休計劃",
       "/group": "團體保險"
+    },
+    "category_map": {
+      "危疾": "賠償",
+      "常用醫生報告": "賠償",
+      "所有醫生報告": "賠償",
+      "其他索償類別": "賠償",
+      "雜項": "保單管理",
+      "投資服務": "保單管理",
+      "保單服務": "保單管理",
+      "提取保單款項": "保單管理",
+      "強積金 / 職業退休計劃 / 澳門退休金": "強積金／退休計劃"
     }
   },
   {
     "company": "CTF",
     "name": "周大福人壽",
-    "pages": ["https://www.ctflife.com.hk/en/support/download"],
-    "exclude": ["/products/", "brochure", "user_guide", "user-guide"],
-    "path_categories": {}
+    "pages": ["https://www.ctflife.com.hk/tc/support/download"],
+    "exclude": ["/products/", "brochure", "guide", "faq"],
+    "path_categories": {},
+    "category_map": {
+      "繳付服務": "保費繳付"
+    }
   }
 ]

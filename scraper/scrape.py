@@ -35,7 +35,19 @@ def pretty_filename(url):
     return clean(re.sub(r"[-_]+", " ", name))
 
 
+LANG_NOTE = re.compile(r"\s*[–\-—]\s*(繁體中文\s*[/／]\s*英文|英文\s*[/／]\s*繁體中文|中英對照)\s*$")
+OVERRIDES_FILE = os.path.join(ROOT, "scraper", "title_overrides.json")
+
+
+def tidy_title(t):
+    return clean(LANG_NOTE.sub("", t))
+
+
 def title_for(a, url):
+    return tidy_title(raw_title(a, url))
+
+
+def raw_title(a, url):
     text = clean(a.get_text(" "))
     if len(text) >= 4 and text.lower() not in GENERIC:
         return text
@@ -60,7 +72,8 @@ def category_for(a, url, source):
             return name
     heading = a.find_previous(["h2", "h3", "h4", "h5"])
     if heading and 2 <= len(clean(heading.get_text())) <= 60:
-        return clean(heading.get_text())
+        name = clean(heading.get_text())
+        return source.get("category_map", {}).get(name, name)
     return "其他"
 
 
@@ -209,10 +222,17 @@ def build_message(changes, statuses, first_run, total, site_url):
 def main():
     with open(SOURCES_FILE, encoding="utf-8") as f:
         sources = json.load(f)
+    overrides = {}
+    if os.path.exists(OVERRIDES_FILE):
+        with open(OVERRIDES_FILE, encoding="utf-8") as f:
+            overrides = json.load(f)
     previous = load_previous()
     first_run = previous is None
     session = requests.Session()
     forms, statuses, changes = scrape(session, sources, previous)
+    for f in forms:
+        if f.get("filename") in overrides:
+            f["title"] = overrides[f["filename"]]
     forms.sort(key=lambda f: (f["company"], f["category"], f["title"]))
 
     data = {
