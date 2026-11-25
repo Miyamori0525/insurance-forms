@@ -535,6 +535,11 @@ def build_message(changes, statuses, first_run, total, site_url, new_companies=(
 
 
 def main():
+    if "--test-telegram" in sys.argv:  # 只傳一則測試訊息，不抓資料
+        site = os.environ.get("SITE_URL", "")
+        send_telegram("✅ <b>保險表格查詢</b>：Telegram 通知設定成功！\n之後官網表格有改版、新增或下架，會在這裡通知大家。"
+                      + (f"\n\n👉 {html.escape(site)}" if site else ""))
+        return
     with open(SOURCES_FILE, encoding="utf-8") as f:
         sources = json.load(f)
     overrides = {}
