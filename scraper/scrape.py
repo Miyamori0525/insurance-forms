@@ -101,7 +101,8 @@ def strings_before(container, a):
 
 def raw_title(a, url, links_of, use_previous=False):
     text = clean(a.get_text(" "))
-    if len(text) >= 4 and not is_generic(text):
+    has_cjk = re.search(r"[一-鿿]", text)
+    if (len(text) >= 4 or (has_cjk and len(text) >= 2)) and not is_generic(text):  # 「腎衰竭」這類短中文名也算
         return text, "link"
     for attr in ("title", "aria-label", "data-title"):
         v = clean(a.get(attr))
@@ -295,7 +296,14 @@ class Browser:
         if r.ok and r.body()[:1024].find(b"%PDF") >= 0:
             return r.body()
         # 被擋（例如 403）：改在官網頁面裡用瀏覽器本身去下載
-        return self.fetch_in_page(url, source, first_error=f"HTTP {r.status}")
+        try:
+            return self.fetch_in_page(url, source, first_error=f"HTTP {r.status}")
+        except Exception as e:
+            # 其他網域的檔案（瀏覽器內無法跨網域下載）：最後用一般方式下載
+            rr = requests.get(url, headers=HEADERS, timeout=60)
+            if rr.ok and b"%PDF" in rr.content[:1024]:
+                return rr.content
+            raise RuntimeError(str(e)[:150])
 
     def fetch_in_page(self, url, source, first_error=""):
         first = source["pages"][0]
