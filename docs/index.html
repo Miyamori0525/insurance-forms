@@ -50,6 +50,14 @@
   .none { background:#fff; border:1px dashed #cbd5e1; border-radius:12px; padding:18px 14px; color:#475569; font-size:14.5px; line-height:1.6; text-align:center; }
   .hint { font-size:12.5px; color:var(--muted); margin:10px 4px 0; line-height:1.5; }
   .ph { display:none; }
+  .fav { flex:0 0 auto; align-self:flex-start; border:0; background:none; font-size:22px; line-height:1; padding:2px 0; color:#c3c8d0; cursor:pointer; }
+  .fav.on { color:#e0a100; }
+  .fav-h { color:#a16207; }
+  .res-h { display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap; }
+  .res-h .btn { font-size:13.5px; padding:7px 12px; }
+  .favs { margin-bottom:6px; }
+  header h1 { transition:font-size .15s; }
+  @media (max-width: 899px) { header.mini h1 { display:none; } header.mini .tabs { margin-top:8px; } }
   .pick:hover, .chip:hover { border-color:#9fb3cc; }
   .btn:hover { filter:brightness(1.08); }
   /* ===== 電腦版（螢幕寬度 900px 以上） ===== */
@@ -71,6 +79,9 @@
     .btns { flex-direction:row; }
     #list .group { margin:14px 4px 0; }
     .card { margin-bottom:0; }
+    #list .favs { grid-column:1 / -1; display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    #list .favs .step { grid-column:1 / -1; margin:6px 4px 0; }
+    .svc-right .fav-h { margin-top:16px; }
     .svc-right .card { margin-bottom:10px; }
     .card:hover { border-color:#c7d2e0; box-shadow:0 2px 10px rgba(31,58,95,.07); }
   }
@@ -124,7 +135,10 @@ const SYN = {
   "更改": ["change", "amend", "alteration"], "補發": ["duplicate", "reprint", "replacement"],
   "簽名": ["signature"], "投資": ["investment", "fund", "switch"], "授權": ["authori"], "年金": ["annuity"]
 };
-const termsFor = w => [w, ...Object.entries(SYN).filter(([k]) => k.includes(w) || w.includes(k)).flatMap(([, v]) => v)];
+// 各家官網用字不同（帳／賬、匯／滙…），搜尋時視為同一個字
+const VAR = { "賬":"帳", "滙":"匯", "証":"證", "裏":"裡", "户":"戶", "綫":"線", "衞":"衛", "啓":"啟", "羣":"群", "麪":"麵", "峯":"峰", "着":"著", "爲":"為", "僞":"偽", "污":"汙", "竪":"豎", "缐":"線", "鈎":"鉤", "台":"臺" };
+const norm = s => String(s).toLowerCase().replace(/[賬滙証裏户綫衞啓羣麪峯着爲僞污竪缐鈎台]/g, c => VAR[c]);
+const termsFor = w => [w, ...Object.entries(SYN).filter(([k]) => norm(k).includes(w) || w.includes(norm(k))).flatMap(([, v]) => v)];
 
 function renderBar() {
   const names = [...new Set(DATA.forms.map(f => f.company_name))];
@@ -134,15 +148,32 @@ function renderBar() {
     ["全部", ...names].map(n => `<button class="chip ${n === company ? "on" : ""}" data-co="${esc(n)}">${esc(n)}</button>`).join("");
 }
 
+// 常用表格（只存在這支手機／這台電腦）
+let FAVS = (() => { try { return JSON.parse(store.get("favs") || "[]"); } catch (e) { return []; } })();
+const isFav = id => FAVS.includes(id);
+function toggleFav(id) {
+  FAVS = isFav(id) ? FAVS.filter(x => x !== id) : [id, ...FAVS];
+  store.set("favs", JSON.stringify(FAVS));
+  toast(isFav(id) ? "已加入常用" : "已從常用移除");
+}
+
 function card(f, pre = "", extra = "", flag = "") {
-  return `<div class="card"><div class="txt">
+  const on = isFav(f.id);
+  return `<div class="card"><button class="fav ${on ? "on" : ""}" data-fav="${esc(f.id)}" title="${on ? "從常用移除" : "加入常用"}" aria-label="${on ? "從常用移除" : "加入常用"}">${on ? "★" : "☆"}</button><div class="txt">
       <div class="title">${flag}${isRecent(f) ? '<span class="badge">新版</span>' : ""}${esc(f.title)}</div>
       ${extra}
-      <div class="sub">${pre}${esc(f.filename)}・更新於 ${esc(f.last_changed)}</div>
+      <div class="sub">${pre}更新於 ${esc(f.last_changed)}</div>
     </div><div class="btns">
       <a class="btn primary" href="${esc(f.url)}" target="_blank" rel="noopener">開啟</a>
-      <button class="btn" data-share="${esc(f.url)}" data-title="${esc(f.title)}">分享</button>
+      <button class="btn" data-share="${esc(f.id)}">分享</button>
     </div></div>`;
+}
+
+function favBlock(onlyCo) {
+  const byId = Object.fromEntries(DATA.forms.map(f => [f.id, f]));
+  const rows = FAVS.map(id => byId[id]).filter(f => f && (!onlyCo || f.company_name === onlyCo));
+  if (!rows.length) return "";
+  return `<div class="step fav-h">★ 我的常用</div>` + rows.map(f => card(f, `<span class="co">${esc(f.company_name)}</span>`)).join("");
 }
 
 // 依服務查找：選公司 → 選服務 → 顯示表格
@@ -157,10 +188,14 @@ function renderSvc() {
       SVC.services.map(n => `<button class="pick ${n === svcName ? "on" : ""}" data-svc="${esc(n)}">${esc(n)}</button>`).join("") + `</div>`;
   }
   html += `</div><div class="svc-right">`;
-  if (!(svcCo && svcName)) html += `<div class="ph"><b>←</b>請在左邊選擇保險公司和服務，<br>需要的表格會顯示在這裡</div>`;
+  if (!(svcCo && svcName)) {
+    const fb = favBlock();
+    html += fb || `<div class="ph"><b>←</b>請在左邊選擇保險公司和服務，<br>需要的表格會顯示在這裡</div>`;
+  }
   if (svcCo && svcName) {
     const items = ((SVC.map[svcCo] || {})[svcName] || []).filter(([id]) => byId[id]);
-    html += `<div class="step">③ ${esc(coName(svcCo))}・${esc(svcName)} 需要的表格</div>`;
+    html += `<div class="step res-h"><span>③ ${esc(coName(svcCo))}・${esc(svcName)} 需要的表格</span>` +
+      (items.length ? `<button class="btn primary" data-shareall>分享全部（${items.length} 份）</button>` : "") + `</div>`;
     if (!items.length) html += `<div class="none">${NO_FORM}</div>`;
     for (const [id, st, note] of items) {
       const f = byId[id];
@@ -184,17 +219,18 @@ function setView(v) {
 }
 
 function render() {
-  const words = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+  const words = norm($("q").value.trim()).split(/\s+/).filter(Boolean);
   let rows = DATA.forms.filter(f =>
     (company === "全部" || f.company_name === company) &&
     (!recentOnly || isRecent(f)) &&
     words.every(w => {
-      const hay = (f.title + " " + f.category + " " + f.filename + " " + f.company_name).toLowerCase();
+      const hay = norm(f.title + " " + f.category + " " + f.filename + " " + f.company_name);
       return termsFor(w).some(t => hay.includes(t));
     }));
   if (recentOnly) rows.sort((a, b) => b.last_changed.localeCompare(a.last_changed));
 
-  let html = "", last = "";
+  let html = (!words.length && !recentOnly) ? favBlock(company === "全部" ? "" : company) : "", last = "";
+  if (html) html = `<div class="favs">${html}</div>`;
   for (const f of rows) {
     const g = recentOnly ? "" : f.company_name + "｜" + f.category;
     if (g && g !== last) { html += `<div class="group">${esc(g)}</div>`; last = g; }
@@ -204,9 +240,21 @@ function render() {
   $("meta").textContent = `共 ${rows.length} 份・最後檢查：${DATA.generated_at || "—"}`;
 }
 
-async function share(url, title) {
-  if (navigator.share) { try { await navigator.share({ title, url }); } catch (e) {} return; }
-  try { await navigator.clipboard.writeText(url); toast("已複製連結"); } catch (e) { prompt("複製這個連結：", url); }
+// 分享：附上公司和表格名稱，方便直接貼給客戶
+async function shareText(title, text) {
+  if (navigator.share) { try { await navigator.share({ title, text }); } catch (e) {} return; }
+  try { await navigator.clipboard.writeText(text); toast("已複製，可直接貼上"); } catch (e) { prompt("複製以下內容：", text); }
+}
+function shareOne(id) {
+  const f = DATA.forms.find(x => x.id === id); if (!f) return;
+  shareText(f.title, `${f.company_name}｜${f.title}\n${f.url}`);
+}
+function shareAll() {
+  const byId = Object.fromEntries(DATA.forms.map(f => [f.id, f]));
+  const coName = ((DATA.sources || []).find(s => s.company === svcCo) || {}).name || svcCo;
+  const items = ((SVC.map[svcCo] || {})[svcName] || []).filter(([id]) => byId[id]);
+  const lines = items.map(([id, st], i) => `${i + 1}. ${byId[id].title}${st === "check" ? "（如適用）" : ""}\n${byId[id].url}`);
+  shareText(`${coName} ${svcName}`, `${coName}・${svcName} 需要的表格：\n\n${lines.join("\n\n")}`);
 }
 function toast(t) { $("toast").textContent = t; $("toast").style.opacity = 1; setTimeout(() => $("toast").style.opacity = 0, 1600); }
 
@@ -214,7 +262,10 @@ document.addEventListener("click", e => {
   const c = e.target.closest("[data-co]"), r = e.target.closest("[data-recent]"), s = e.target.closest("[data-share]");
   if (c) { company = c.dataset.co; renderBar(); render(); }
   if (r) { recentOnly = !recentOnly; renderBar(); render(); }
-  if (s) share(s.dataset.share, s.dataset.title);
+  if (s) shareOne(s.dataset.share);
+  if (e.target.closest("[data-shareall]")) shareAll();
+  const fv = e.target.closest("[data-fav]");
+  if (fv) { toggleFav(fv.dataset.fav); if (view === "svc") renderSvc(); else render(); }
   const t = e.target.closest("[data-view]"), sc = e.target.closest("[data-svcco]"), sv = e.target.closest("[data-svc]");
   if (t) setView(t.dataset.view);
   if (sc) { svcCo = sc.dataset.svcco; store.set("svcCo", svcCo); renderSvc(); }
@@ -227,6 +278,12 @@ document.addEventListener("click", e => {
 $("q").addEventListener("input", () => { if (view !== "all" && $("q").value.trim()) setView("all"); else render(); });
 const fixBar = () => document.documentElement.style.setProperty("--hh", $("hd").offsetHeight + "px");
 addEventListener("resize", fixBar); fixBar();
+// 手機往下滑時收起標題，讓表格多露出一點
+addEventListener("scroll", () => {
+  const hd = $("hd"), y = scrollY;
+  if (y > 60 && !hd.classList.contains("mini")) { hd.classList.add("mini"); fixBar(); }
+  else if (y < 8 && hd.classList.contains("mini")) { hd.classList.remove("mini"); fixBar(); }
+}, { passive: true });
 
 Promise.all([
   fetch("forms.json", { cache: "no-store" }).then(r => r.json()),
