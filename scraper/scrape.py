@@ -292,6 +292,7 @@ class Browser:
 
     def get_bytes(self, url, source):
         url = requests.utils.requote_uri(url)  # 中文檔名要先編碼
+        self.start(source.get("browser"))
         r = self.ctx.request.get(url, timeout=90000)
         if r.ok and r.body()[:1024].find(b"%PDF") >= 0:
             return r.body()

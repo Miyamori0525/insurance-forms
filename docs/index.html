@@ -35,6 +35,19 @@
   .btn { font-size:14px; text-decoration:none; text-align:center; border-radius:8px; padding:8px 12px; border:1px solid var(--navy); color:var(--navy); background:#fff; cursor:pointer; white-space:nowrap; }
   .btn.primary { background:var(--navy); color:#fff; }
   .empty { text-align:center; color:var(--muted); padding:40px 0; }
+  .tabs { display:flex; gap:6px; margin-top:10px; }
+  .tab { flex:1; border:0; border-radius:9px; padding:9px 0; font-size:15px; background:rgba(255,255,255,.14); color:#fff; cursor:pointer; }
+  .tab.on { background:#fff; color:var(--navy); font-weight:700; }
+  .step { font-size:14px; font-weight:700; color:var(--navy); margin:16px 4px 8px; scroll-margin-top:calc(var(--hh,150px) + 8px); }
+  .grid { display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; }
+  .pick { border:1px solid var(--line); background:#fff; color:var(--ink); border-radius:10px; padding:12px 8px; font-size:15px; cursor:pointer; text-align:center; }
+  .pick.on { background:var(--navy); border-color:var(--navy); color:#fff; font-weight:700; }
+  .pick small { display:block; font-size:11.5px; color:var(--muted); margin-top:2px; }
+  .pick.on small { color:#dbe4f0; }
+  .note { font-size:12.5px; color:#475569; margin-top:5px; }
+  .chk { display:inline-block; font-size:11px; font-weight:700; color:var(--warn); background:#fff7ed; border:1px solid #fed7aa; border-radius:5px; padding:0 5px; margin-right:5px; vertical-align:1px; }
+  .none { background:#fff; border:1px dashed #cbd5e1; border-radius:12px; padding:18px 14px; color:#475569; font-size:14.5px; line-height:1.6; text-align:center; }
+  .hint { font-size:12.5px; color:var(--muted); margin:10px 4px 0; line-height:1.5; }
   #toast { position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:#111; color:#fff; padding:9px 16px; border-radius:8px; font-size:14px; opacity:0; transition:.2s; pointer-events:none; }
 </style>
 </head>
@@ -42,10 +55,15 @@
 <header id="hd">
   <h1>保險表格查詢</h1>
   <input id="q" type="search" placeholder="搜尋表格，例如：轉數快、退保、受益人" autocomplete="off">
+  <div class="tabs">
+    <button class="tab on" data-view="svc">依服務查找</button>
+    <button class="tab" data-view="all">全部表格</button>
+  </div>
 </header>
-<div class="bar" id="bar"></div>
+<div class="bar" id="bar" hidden></div>
 <main>
   <div id="warn"></div>
+  <div id="svc"></div>
   <div class="meta" id="meta">載入中…</div>
   <div id="list"></div>
 </main>
@@ -53,6 +71,10 @@
 <script>
 const RECENT_DAYS = 30;
 let DATA = { forms: [], sources: [] }, company = "全部", recentOnly = false;
+let SVC = { services: [], map: {} }, view = "svc", svcCo = null, svcName = null;
+const NO_FORM = "官網未提供表格，請聯絡保險公司或經網上平台辦理";
+const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+                set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
@@ -86,6 +108,53 @@ function renderBar() {
     ["全部", ...names].map(n => `<button class="chip ${n === company ? "on" : ""}" data-co="${esc(n)}">${esc(n)}</button>`).join("");
 }
 
+function card(f, pre = "", extra = "", flag = "") {
+  return `<div class="card"><div class="txt">
+      <div class="title">${flag}${isRecent(f) ? '<span class="badge">新版</span>' : ""}${esc(f.title)}</div>
+      ${extra}
+      <div class="sub">${pre}${esc(f.filename)}・更新於 ${esc(f.last_changed)}</div>
+    </div><div class="btns">
+      <a class="btn primary" href="${esc(f.url)}" target="_blank" rel="noopener">開啟</a>
+      <button class="btn" data-share="${esc(f.url)}" data-title="${esc(f.title)}">分享</button>
+    </div></div>`;
+}
+
+// 依服務查找：選公司 → 選服務 → 顯示表格
+function renderSvc() {
+  const byId = Object.fromEntries(DATA.forms.map(f => [f.id, f]));
+  const coName = c => ((DATA.sources || []).find(s => s.company === c) || {}).name || c;
+  const cos = Object.keys(SVC.map);
+  let html = `<div class="step">① 選擇保險公司</div><div class="grid">` +
+    cos.map(c => `<button class="pick ${c === svcCo ? "on" : ""}" data-svcco="${esc(c)}">${esc(coName(c))}</button>`).join("") + `</div>`;
+  if (svcCo) {
+    html += `<div class="step">② 選擇服務</div><div class="grid">` +
+      SVC.services.map(n => `<button class="pick ${n === svcName ? "on" : ""}" data-svc="${esc(n)}">${esc(n)}</button>`).join("") + `</div>`;
+  }
+  if (svcCo && svcName) {
+    const items = ((SVC.map[svcCo] || {})[svcName] || []).filter(([id]) => byId[id]);
+    html += `<div class="step">③ ${esc(coName(svcCo))}・${esc(svcName)} 需要的表格</div>`;
+    if (!items.length) html += `<div class="none">${NO_FORM}</div>`;
+    for (const [id, st, note] of items) {
+      const f = byId[id];
+      const flag = st === "check" ? '<span class="chk">待確認</span>' : "";
+      const tip = [note, st === "check" ? "是否需要此表格，請向保險公司確認" : ""].filter(Boolean).join("；");
+      html += card(f, "", tip ? `<div class="note">${esc(tip)}</div>` : "", flag);
+    }
+    if (items.length) html += `<div class="hint">標示「待確認」的表格不一定需要，提交前請向保險公司或官網確認。表格以官網最新版本為準。</div>`;
+  }
+  $("svc").innerHTML = html;
+}
+
+function setView(v) {
+  view = v;
+  document.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.dataset.view === v));
+  $("bar").hidden = v !== "all";
+  $("svc").hidden = v !== "svc";
+  $("meta").hidden = $("list").hidden = v !== "all";
+  fixBar();
+  if (v === "svc") renderSvc(); else { renderBar(); render(); }
+}
+
 function render() {
   const words = $("q").value.trim().toLowerCase().split(/\s+/).filter(Boolean);
   let rows = DATA.forms.filter(f =>
@@ -101,13 +170,7 @@ function render() {
   for (const f of rows) {
     const g = recentOnly ? "" : f.company_name + "｜" + f.category;
     if (g && g !== last) { html += `<div class="group">${esc(g)}</div>`; last = g; }
-    html += `<div class="card"><div class="txt">
-        <div class="title">${isRecent(f) ? '<span class="badge">新版</span>' : ""}${esc(f.title)}</div>
-        <div class="sub">${recentOnly ? `<span class="co">${esc(f.company_name)}</span>` : ""}${esc(f.filename)}・更新於 ${esc(f.last_changed)}</div>
-      </div><div class="btns">
-        <a class="btn primary" href="${esc(f.url)}" target="_blank" rel="noopener">開啟</a>
-        <button class="btn" data-share="${esc(f.url)}" data-title="${esc(f.title)}">分享</button>
-      </div></div>`;
+    html += card(f, recentOnly ? `<span class="co">${esc(f.company_name)}</span>` : "");
   }
   $("list").innerHTML = html || `<div class="empty">找不到符合的表格</div>`;
   $("meta").textContent = `共 ${rows.length} 份・最後檢查：${DATA.generated_at || "—"}`;
@@ -124,16 +187,29 @@ document.addEventListener("click", e => {
   if (c) { company = c.dataset.co; renderBar(); render(); }
   if (r) { recentOnly = !recentOnly; renderBar(); render(); }
   if (s) share(s.dataset.share, s.dataset.title);
+  const t = e.target.closest("[data-view]"), sc = e.target.closest("[data-svcco]"), sv = e.target.closest("[data-svc]");
+  if (t) setView(t.dataset.view);
+  if (sc) { svcCo = sc.dataset.svcco; store.set("svcCo", svcCo); renderSvc(); }
+  if (sv) {
+    svcName = sv.dataset.svc; store.set("svcName", svcName); renderSvc();
+    const step = [...document.querySelectorAll(".step")].pop();
+    if (step) step.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 });
-$("q").addEventListener("input", render);
+$("q").addEventListener("input", () => { if (view !== "all" && $("q").value.trim()) setView("all"); else render(); });
 const fixBar = () => document.documentElement.style.setProperty("--hh", $("hd").offsetHeight + "px");
 addEventListener("resize", fixBar); fixBar();
 
-fetch("forms.json", { cache: "no-store" }).then(r => r.json()).then(d => {
-  DATA = d;
+Promise.all([
+  fetch("forms.json", { cache: "no-store" }).then(r => r.json()),
+  fetch("services.json", { cache: "no-store" }).then(r => r.json()).catch(() => ({ services: [], map: {} }))
+]).then(([d, sv]) => {
+  DATA = d; SVC = sv;
+  svcCo = SVC.map[store.get("svcCo")] ? store.get("svcCo") : null;
+  svcName = svcCo && SVC.services.includes(store.get("svcName")) ? store.get("svcName") : null;
   const bad = (d.sources || []).filter(s => !s.ok);
   if (bad.length) $("warn").innerHTML = `<div class="warn">⚠️ ${bad.map(s => esc(s.name)).join("、")} 最近一次更新失敗，顯示的可能不是最新版本，請以官網為準。</div>`;
-  renderBar(); render();
+  setView(Object.keys(SVC.map).length ? "svc" : "all");
 }).catch(() => { $("meta").textContent = "載入失敗，請檢查網路後重新整理"; });
 
 if ("serviceWorker" in navigator) navigator.serviceWorker.register("sw.js");
