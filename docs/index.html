@@ -29,7 +29,7 @@
   .card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-bottom:8px; display:flex; gap:12px; align-items:center; }
   .card .txt { flex:1; min-width:0; }
   .title { font-size:15.5px; line-height:1.35; word-break:break-word; }
-  .sub { font-size:12.5px; color:var(--muted); margin-top:4px; }
+  .sub { font-size:12.5px; color:var(--muted); margin-top:4px; overflow-wrap:anywhere; }
   .badge { display:inline-block; font-size:11px; font-weight:700; color:#fff; background:var(--new); border-radius:5px; padding:1px 6px; margin-right:5px; vertical-align:2px; }
   .co { display:inline-block; font-size:11px; color:var(--navy); border:1px solid #c7d2e0; border-radius:5px; padding:0 5px; margin-right:6px; }
   .btns { display:flex; flex-direction:column; gap:6px; }
@@ -49,18 +49,43 @@
   .chk { display:inline-block; font-size:11px; font-weight:700; color:var(--warn); background:#fff7ed; border:1px solid #fed7aa; border-radius:5px; padding:0 5px; margin-right:5px; vertical-align:1px; }
   .none { background:#fff; border:1px dashed #cbd5e1; border-radius:12px; padding:18px 14px; color:#475569; font-size:14.5px; line-height:1.6; text-align:center; }
   .hint { font-size:12.5px; color:var(--muted); margin:10px 4px 0; line-height:1.5; }
+  .ph { display:none; }
+  .pick:hover, .chip:hover { border-color:#9fb3cc; }
+  .btn:hover { filter:brightness(1.08); }
+  /* ===== 電腦版（螢幕寬度 900px 以上） ===== */
+  @media (min-width: 900px) {
+    header { padding:14px max(24px, calc((100vw - 1140px) / 2)); }
+    .hd-in { display:grid; grid-template-columns:auto 1fr 320px; gap:20px; align-items:center; }
+    h1 { margin:0; font-size:21px; }
+    .tabs { margin-top:0; }
+    .bar { padding:10px max(24px, calc((100vw - 1140px) / 2)); flex-wrap:wrap; }
+    main { max-width:1140px; padding:16px 24px 60px; }
+    .svc-wrap { display:grid; grid-template-columns:360px 1fr; gap:32px; align-items:start; }
+    .svc-left { position:sticky; top:calc(var(--hh,80px) + 8px); }
+    .svc-right .step:first-child { margin-top:16px; }
+    .ph { display:block; margin-top:52px; background:#fff; border:1px dashed #cbd5e1; border-radius:14px; padding:48px 20px; text-align:center; color:var(--muted); font-size:15px; line-height:1.8; }
+    .ph b { display:block; font-size:28px; color:#cbd5e1; margin-bottom:6px; }
+    #list { display:grid; grid-template-columns:1fr 1fr; gap:10px; align-items:stretch; }
+    #list .group, #list .empty { grid-column:1 / -1; }
+    #list > *, .svc-wrap > * { min-width:0; }
+    .btns { flex-direction:row; }
+    #list .group { margin:14px 4px 0; }
+    .card { margin-bottom:0; }
+    .svc-right .card { margin-bottom:10px; }
+    .card:hover { border-color:#c7d2e0; box-shadow:0 2px 10px rgba(31,58,95,.07); }
+  }
   #toast { position:fixed; left:50%; bottom:30px; transform:translateX(-50%); background:#111; color:#fff; padding:9px 16px; border-radius:8px; font-size:14px; opacity:0; transition:.2s; pointer-events:none; }
 </style>
 </head>
 <body>
-<header id="hd">
+<header id="hd"><div class="hd-in">
   <h1>保險表格查詢</h1>
   <input id="q" type="search" placeholder="搜尋表格，例如：轉數快、退保、受益人" autocomplete="off">
   <div class="tabs">
     <button class="tab on" data-view="svc">依服務查找</button>
     <button class="tab" data-view="all">全部表格</button>
   </div>
-</header>
+</div></header>
 <div class="bar" id="bar" hidden></div>
 <main>
   <div id="warn"></div>
@@ -125,12 +150,14 @@ function renderSvc() {
   const byId = Object.fromEntries(DATA.forms.map(f => [f.id, f]));
   const coName = c => ((DATA.sources || []).find(s => s.company === c) || {}).name || c;
   const cos = Object.keys(SVC.map);
-  let html = `<div class="step">① 選擇保險公司</div><div class="grid">` +
+  let html = `<div class="svc-wrap"><div class="svc-left"><div class="step">① 選擇保險公司</div><div class="grid">` +
     cos.map(c => `<button class="pick ${c === svcCo ? "on" : ""}" data-svcco="${esc(c)}">${esc(coName(c))}</button>`).join("") + `</div>`;
   if (svcCo) {
     html += `<div class="step">② 選擇服務</div><div class="grid">` +
       SVC.services.map(n => `<button class="pick ${n === svcName ? "on" : ""}" data-svc="${esc(n)}">${esc(n)}</button>`).join("") + `</div>`;
   }
+  html += `</div><div class="svc-right">`;
+  if (!(svcCo && svcName)) html += `<div class="ph"><b>←</b>請在左邊選擇保險公司和服務，<br>需要的表格會顯示在這裡</div>`;
   if (svcCo && svcName) {
     const items = ((SVC.map[svcCo] || {})[svcName] || []).filter(([id]) => byId[id]);
     html += `<div class="step">③ ${esc(coName(svcCo))}・${esc(svcName)} 需要的表格</div>`;
@@ -143,7 +170,7 @@ function renderSvc() {
     }
     if (items.length) html += `<div class="hint">標示「待確認」的表格不一定需要，提交前請向保險公司或官網確認。表格以官網最新版本為準。</div>`;
   }
-  $("svc").innerHTML = html;
+  $("svc").innerHTML = html + `</div></div>`;
 }
 
 function setView(v) {
@@ -194,7 +221,7 @@ document.addEventListener("click", e => {
   if (sv) {
     svcName = sv.dataset.svc; store.set("svcName", svcName); renderSvc();
     const step = [...document.querySelectorAll(".step")].pop();
-    if (step) step.scrollIntoView({ behavior: "smooth", block: "start" });
+    if (step && innerWidth < 900) step.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 });
 $("q").addEventListener("input", () => { if (view !== "all" && $("q").value.trim()) setView("all"); else render(); });
