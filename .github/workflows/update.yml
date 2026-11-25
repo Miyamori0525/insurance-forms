@@ -9,6 +9,10 @@ on:
         description: "只傳送 Telegram 測試訊息（不抓表格）"
         type: boolean
         default: false
+      find_chat:
+        description: "只列出 Telegram 群組代號（設定用）"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -38,7 +42,9 @@ jobs:
           SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
         # xvfb-run 提供虛擬螢幕，讓宏利這類會擋背景瀏覽器的官網也能抓
         run: |
-          if [ "${{ inputs.test_telegram }}" = "true" ]; then
+          if [ "${{ inputs.find_chat }}" = "true" ]; then
+            python scraper/scrape.py --find-chat
+          elif [ "${{ inputs.test_telegram }}" = "true" ]; then
             python scraper/scrape.py --test-telegram
           else
             xvfb-run -a python scraper/scrape.py

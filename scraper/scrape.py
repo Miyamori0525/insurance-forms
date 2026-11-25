@@ -535,6 +535,23 @@ def build_message(changes, statuses, first_run, total, site_url, new_companies=(
 
 
 def main():
+    if "--find-chat" in sys.argv:  # 列出機器人所在的群組代號（Chat ID），不抓資料
+        token = os.environ.get("TELEGRAM_BOT_TOKEN")
+        if not token:
+            sys.exit("尚未設定 TELEGRAM_BOT_TOKEN")
+        r = requests.get(f"https://api.telegram.org/bot{token}/getUpdates", timeout=30).json()
+        if not r.get("ok"):
+            sys.exit(f"Telegram 回應錯誤（token 可能貼錯）：{r.get('description')}")
+        chats = {}
+        for u in r.get("result", []):
+            for key in ("message", "my_chat_member", "chat_member", "channel_post", "edited_message"):
+                c = (u.get(key) or {}).get("chat")
+                if c:
+                    chats[c["id"]] = (c.get("type"), c.get("title") or c.get("first_name") or "")
+        print("找到的聊天室：" if chats else "沒找到任何聊天室：請在群組裡再發一則訊息後重試")
+        for cid, (typ, title) in chats.items():
+            print(f"CHAT_ID={cid}  類型={typ}  名稱={title}")
+        return
     if "--test-telegram" in sys.argv:  # 只傳一則測試訊息，不抓資料
         site = os.environ.get("SITE_URL", "")
         send_telegram("✅ <b>保險表格查詢</b>：Telegram 通知設定成功！\n之後官網表格有改版、新增或下架，會在這裡通知大家。"
