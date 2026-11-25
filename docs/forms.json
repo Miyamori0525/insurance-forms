@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-25 10:12",
+ "generated_at": "2026-11-25 10:34",
  "baseline_date": "2026-11-24",
  "company_baseline": {
   "PRU": "2026-11-25",
@@ -26,8 +26,7 @@
     ],
     "excluded": 10,
     "title_source": {
-     "link": 165,
-     "filename": 13
+     "link": 178
     },
     "download_failed": 0
    }
@@ -48,8 +47,7 @@
     ],
     "excluded": 41,
     "title_source": {
-     "link": 36,
-     "filename": 1
+     "link": 37
     },
     "download_failed": 0
    }
@@ -961,188 +959,6 @@
    "last_checked": "2026-11-25"
   },
   {
-   "id": "8e968c52ca89",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLM106.pdf.coredownload.inline.pdf",
-   "filename": "OPCLM106.pdf.coredownload.inline.pdf",
-   "title": "OPCLM106",
-   "category": "賠償",
-   "sha256": "35a945bf8c14afdaf13243392dc39f06eaf3698e1a756e79049e8d3d468d9331",
-   "size": 287249,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "a9b98ee6f94e",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF24_Critical%20Illness%20-%20Kidney%20Failure.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF24_Critical Illness - Kidney Failure.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF24 Critical Illness Kidney Failure",
-   "category": "賠償",
-   "sha256": "c4ecfd720aadc8e052a9dfcaef13b6ba7dd6ca515ea50558dd1b109c759e1e8c",
-   "size": 290361,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "41fa1ac8fadb",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF28_Critical%20Illness%20-%20Blindness.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF28_Critical Illness - Blindness.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF28 Critical Illness Blindness",
-   "category": "賠償",
-   "sha256": "3b3595d0aeb491d735740e133b50037284447f2efa29000667dca4fd22b3ae25",
-   "size": 265094,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "3edd7d998c1c",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF29_Critical%20Illness%20-%20Loss%20of%20Hearing.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF29_Critical Illness - Loss of Hearing.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF29 Critical Illness Loss of Hearing",
-   "category": "賠償",
-   "sha256": "5563b6c17885f1d857654c079cb9bbec4efde28df754d877db370c267f54402d",
-   "size": 273488,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "15f2d400eda0",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF31_Critical%20Illness%20-%20Coma.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF31_Critical Illness - Coma.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF31 Critical Illness Coma",
-   "category": "賠償",
-   "sha256": "d1370dec0496ce8465da4c236f2a7ca1efd17401d9da6c6c0ee6a45f20800048",
-   "size": 278167,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "443985e68452",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF34_Critical%20Illness%20-%20Paralysis.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF34_Critical Illness - Paralysis.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF34 Critical Illness Paralysis",
-   "category": "賠償",
-   "sha256": "fdfe82db62083b26e73a5217d374e4ae29080e775a29158c72895142134f9ea5",
-   "size": 269842,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "303b4e434f23",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF43_Critical%20Illness%20-%20Encephalitis.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF43_Critical Illness - Encephalitis.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF43 Critical Illness Encephalitis",
-   "category": "賠償",
-   "sha256": "b593d9c8d4ef9b629d3249acbbfe111d6e1d6637d136f5da386e802d6333efe8",
-   "size": 277824,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "186637e4f4c4",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF47_Critical%20Illness%20-%20Elephantiasis.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF47_Critical Illness - Elephantiasis.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF47 Critical Illness Elephantiasis",
-   "category": "賠償",
-   "sha256": "99054f937e2fd04e9833514115a85652f83c4543bbbeeb3d2a5ffa41dabee3b6",
-   "size": 267771,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "e21627b04b4f",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF49_Critical%20Illness%20-%20Apallic%20Syndrome.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF49_Critical Illness - Apallic Syndrome.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF49 Critical Illness Apallic Syndrome",
-   "category": "賠償",
-   "sha256": "4973f66433ab59e4833b2339608761b16923cb3571a6c5017f62e0ef814dd33c",
-   "size": 270374,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "ef58c9404aa7",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF55_Female%20Product%20-%20Spina%20Bifida.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF55_Female Product - Spina Bifida.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF55 Female Product Spina Bifida",
-   "category": "賠償",
-   "sha256": "d6810a33cc2d2e62984bc61712beacb600600e3e51ea5eec045eb49162c39b52",
-   "size": 291084,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "8772707fadcd",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF66_Critical%20Illness%20-%20Hemiplegia.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF66_Critical Illness - Hemiplegia.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF66 Critical Illness Hemiplegia",
-   "category": "賠償",
-   "sha256": "abee3b1c38847e7b4a9fa9b4bf5f173da3d635f9c6f265975f5ba860322f9687",
-   "size": 270588,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "510d763e0bf9",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF72_Critical%20Illness%20-%20Cardiomyopathy.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF72_Critical Illness - Cardiomyopathy.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF72 Critical Illness Cardiomyopathy",
-   "category": "賠償",
-   "sha256": "96db788ddb9c199c9a4b20aaf048070e7a38c11cc29b1d570b2463c193f3c54c",
-   "size": 281109,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "dad778ded24c",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "AIA",
-   "company_name": "友邦 AIA",
-   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF77_Critical%20Illness%20-%20Ebola.pdf.coredownload.inline.pdf",
-   "filename": "OPCLMF77_Critical Illness - Ebola.pdf.coredownload.inline.pdf",
-   "title": "OPCLMF77 Critical Illness Ebola",
-   "category": "賠償",
-   "sha256": "388f7e1a32062671f584de17f793dc330c05b7569904a2d33410a97482ae1256",
-   "size": 270335,
-   "last_checked": "2026-11-25"
-  },
-  {
    "id": "0daca69b6a3b",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -1269,6 +1085,20 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "dad778ded24c",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF77_Critical%20Illness%20-%20Ebola.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF77_Critical Illness - Ebola.pdf.coredownload.inline.pdf",
+   "title": "伊波拉",
+   "category": "賠償",
+   "sha256": "388f7e1a32062671f584de17f793dc330c05b7569904a2d33410a97482ae1256",
+   "size": 270335,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "a7faa23dcbda",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -1280,6 +1110,20 @@
    "category": "賠償",
    "sha256": "c00aaa09a8d7c16d6b3ea092e7249f09fc47c5f5eae265490dc835cb7b51e3aa",
    "size": 269997,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "8772707fadcd",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF66_Critical%20Illness%20-%20Hemiplegia.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF66_Critical Illness - Hemiplegia.pdf.coredownload.inline.pdf",
+   "title": "偏癱",
+   "category": "賠償",
+   "sha256": "abee3b1c38847e7b4a9fa9b4bf5f173da3d635f9c6f265975f5ba860322f9687",
+   "size": 270588,
    "last_checked": "2026-11-25"
   },
   {
@@ -1801,6 +1645,34 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "41fa1ac8fadb",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF28_Critical%20Illness%20-%20Blindness.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF28_Critical Illness - Blindness.pdf.coredownload.inline.pdf",
+   "title": "失明",
+   "category": "賠償",
+   "sha256": "3b3595d0aeb491d735740e133b50037284447f2efa29000667dca4fd22b3ae25",
+   "size": 265094,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "3edd7d998c1c",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF29_Critical%20Illness%20-%20Loss%20of%20Hearing.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF29_Critical Illness - Loss of Hearing.pdf.coredownload.inline.pdf",
+   "title": "失聰",
+   "category": "賠償",
+   "sha256": "5563b6c17885f1d857654c079cb9bbec4efde28df754d877db370c267f54402d",
+   "size": 273488,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "aca86d01a162",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -1882,6 +1754,20 @@
    "category": "賠償",
    "sha256": "62f07b953e7e113ee1e88ff54cac1a23417821564bffe7cf26da11799c16661a",
    "size": 272653,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "510d763e0bf9",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF72_Critical%20Illness%20-%20Cardiomyopathy.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF72_Critical Illness - Cardiomyopathy.pdf.coredownload.inline.pdf",
+   "title": "心肌病",
+   "category": "賠償",
+   "sha256": "96db788ddb9c199c9a4b20aaf048070e7a38c11cc29b1d570b2463c193f3c54c",
+   "size": 281109,
    "last_checked": "2026-11-25"
   },
   {
@@ -2067,6 +1953,20 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "15f2d400eda0",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF31_Critical%20Illness%20-%20Coma.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF31_Critical Illness - Coma.pdf.coredownload.inline.pdf",
+   "title": "昏迷",
+   "category": "賠償",
+   "sha256": "d1370dec0496ce8465da4c236f2a7ca1efd17401d9da6c6c0ee6a45f20800048",
+   "size": 278167,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "3d5a6db7eda1",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -2148,6 +2048,20 @@
    "category": "賠償",
    "sha256": "0c40c0baffd428a6c9f89160e4b991900f4272dc5251016ceffd2df2f7e7ea4d",
    "size": 270238,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "e21627b04b4f",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF49_Critical%20Illness%20-%20Apallic%20Syndrome.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF49_Critical Illness - Apallic Syndrome.pdf.coredownload.inline.pdf",
+   "title": "植物人",
+   "category": "賠償",
+   "sha256": "4973f66433ab59e4833b2339608761b16923cb3571a6c5017f62e0ef814dd33c",
+   "size": 270374,
    "last_checked": "2026-11-25"
   },
   {
@@ -2274,6 +2188,20 @@
    "category": "賠償",
    "sha256": "df729e05f0ede0e8430a0f12bb7fc3c2e85ebe3e765aae766fd3f692e6d9aa64",
    "size": 227748,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "443985e68452",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF34_Critical%20Illness%20-%20Paralysis.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF34_Critical Illness - Paralysis.pdf.coredownload.inline.pdf",
+   "title": "癱瘓",
+   "category": "賠償",
+   "sha256": "fdfe82db62083b26e73a5217d374e4ae29080e775a29158c72895142134f9ea5",
+   "size": 269842,
    "last_checked": "2026-11-25"
   },
   {
@@ -2417,6 +2345,20 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "ef58c9404aa7",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF55_Female%20Product%20-%20Spina%20Bifida.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF55_Female Product - Spina Bifida.pdf.coredownload.inline.pdf",
+   "title": "脊柱裂",
+   "category": "賠償",
+   "sha256": "d6810a33cc2d2e62984bc61712beacb600600e3e51ea5eec045eb49162c39b52",
+   "size": 291084,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "982588851cd3",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -2445,6 +2387,20 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "a9b98ee6f94e",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF24_Critical%20Illness%20-%20Kidney%20Failure.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF24_Critical Illness - Kidney Failure.pdf.coredownload.inline.pdf",
+   "title": "腎衰竭",
+   "category": "賠償",
+   "sha256": "c4ecfd720aadc8e052a9dfcaef13b6ba7dd6ca515ea50558dd1b109c759e1e8c",
+   "size": 290361,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "6ac14a96219c",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -2459,6 +2415,20 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "303b4e434f23",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF43_Critical%20Illness%20-%20Encephalitis.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF43_Critical Illness - Encephalitis.pdf.coredownload.inline.pdf",
+   "title": "腦炎",
+   "category": "賠償",
+   "sha256": "b593d9c8d4ef9b629d3249acbbfe111d6e1d6637d136f5da386e802d6333efe8",
+   "size": 277824,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "c38f966182b2",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -2470,6 +2440,20 @@
    "category": "賠償",
    "sha256": "e0f7d56c7d24ab973985941e63de2e45f5566254cbc15f1c69b54400fe15d667",
    "size": 269760,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "8e968c52ca89",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLM106.pdf.coredownload.inline.pdf",
+   "filename": "OPCLM106.pdf.coredownload.inline.pdf",
+   "title": "自閉症",
+   "category": "賠償",
+   "sha256": "35a945bf8c14afdaf13243392dc39f06eaf3698e1a756e79049e8d3d468d9331",
+   "size": 287249,
    "last_checked": "2026-11-25"
   },
   {
@@ -2512,6 +2496,20 @@
    "category": "賠償",
    "sha256": "767d366625af98868c09267dbfb1143a6775c7df39535dcf69e53ef9d52a02de",
    "size": 271598,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "186637e4f4c4",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "AIA",
+   "company_name": "友邦 AIA",
+   "url": "https://www.aia.com.hk/content/dam/hk-wise/pdf/form-library/form-individual/claims/OPCLMF47_Critical%20Illness%20-%20Elephantiasis.pdf.coredownload.inline.pdf",
+   "filename": "OPCLMF47_Critical Illness - Elephantiasis.pdf.coredownload.inline.pdf",
+   "title": "象皮病",
+   "category": "賠償",
+   "sha256": "99054f937e2fd04e9833514115a85652f83c4543bbbeeb3d2a5ffa41dabee3b6",
+   "size": 267771,
    "last_checked": "2026-11-25"
   },
   {
@@ -4475,20 +4473,6 @@
    "last_checked": "2026-11-25"
   },
   {
-   "id": "71d4abbda3de",
-   "first_seen": "2026-11-24",
-   "last_changed": "2026-11-24",
-   "company": "CTF",
-   "company_name": "周大福人壽",
-   "url": "https://www.ctflife.com.hk/pdf/tc/support/download/Authorization.pdf",
-   "filename": "Authorization.pdf",
-   "title": "Authorization",
-   "category": "賠償",
-   "sha256": "d8b1d226d692fe37cf8dd563eaba939be40378662dc3a3cf566b55efc0c08052",
-   "size": 800183,
-   "last_checked": "2026-11-25"
-  },
-  {
    "id": "a3290141ab5c",
    "first_seen": "2026-11-24",
    "last_changed": "2026-11-24",
@@ -4542,6 +4526,20 @@
    "category": "賠償",
    "sha256": "d0ae30f0bf6c333bc46bcbd15426f5dcbb49b7a880f058226a473b3d442ec8b8",
    "size": 1250266,
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "71d4abbda3de",
+   "first_seen": "2026-11-24",
+   "last_changed": "2026-11-24",
+   "company": "CTF",
+   "company_name": "周大福人壽",
+   "url": "https://www.ctflife.com.hk/pdf/tc/support/download/Authorization.pdf",
+   "filename": "Authorization.pdf",
+   "title": "授權書",
+   "category": "賠償",
+   "sha256": "d8b1d226d692fe37cf8dd563eaba939be40378662dc3a3cf566b55efc0c08052",
+   "size": 800183,
    "last_checked": "2026-11-25"
   },
   {
@@ -7284,7 +7282,7 @@
    "filename": "mgf-change-receipt-of-annual-report.pdf",
    "title": "宏利環球基金 - 收取年報及未經審核半年報印刷本更新資料表格",
    "category": "投資相連",
-   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    at eval (eval at evaluate (:370:30), <anonymous>:2:",
+   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    a",
    "sha256": null
   },
   {
@@ -7297,7 +7295,7 @@
    "filename": "maf-change-receipt-of-annual-report.pdf",
    "title": "宏利盈進基金SPC － 收取年報及未經審核半年報印刷本更新資料表格",
    "category": "投資相連",
-   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    at eval (eval at evaluate (:370:30), <anonymous>:2:",
+   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    a",
    "sha256": null
   },
   {
@@ -7310,7 +7308,7 @@
    "filename": "mhk-change-receipt-of-annual-report.pdf",
    "title": "宏利香港系列 － 收取年報及未經審核半年報印刷本更新資料表格",
    "category": "投資相連",
-   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    at eval (eval at evaluate (:370:30), <anonymous>:2:",
+   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    a",
    "sha256": null
   },
   {
