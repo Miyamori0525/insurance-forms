@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-11-25 10:34",
+ "generated_at": "2026-11-25 13:06",
  "baseline_date": "2026-11-24",
  "company_baseline": {
   "PRU": "2026-11-25",
@@ -79,22 +79,21 @@
    "company": "MANULIFE",
    "name": "宏利",
    "ok": true,
-   "count": 50,
+   "count": 47,
    "error": null,
    "debug": {
     "method": "headed",
     "pages": [
      {
       "url": "https://www.manulife.com.hk/zh-hk/individual/services/form-library.html",
-      "found": 50
+      "found": 47
      }
     ],
-    "excluded": 28,
+    "excluded": 31,
     "title_source": {
-     "heading": 47,
-     "link": 3
+     "heading": 47
     },
-    "download_failed": 3
+    "download_failed": 0
    }
   },
   {
@@ -5901,6 +5900,20 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "c4ac0f311ff2",
+   "first_seen": "2026-11-25",
+   "last_changed": "2026-11-25",
+   "company": "HSBC",
+   "company_name": "滙豐人壽",
+   "url": "https://www.hsbc.com.hk/content/dam/hsbc/hk/docs/insurance/life/change-of-beneficiary-contingent-policyholder.pdf",
+   "filename": "change-of-beneficiary-contingent-policyholder.pdf",
+   "title": "更改受益人╱認知障礙保障受益人及身故賠償選項",
+   "category": "保單管理",
+   "sha256": "cf0d14f9205ed8b47253550b2244803a00a6c80cd661367e292bc0c1a5f62779",
+   "size": 1496246,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "10cae2f2a3cf",
    "first_seen": "2026-11-25",
    "last_changed": "2026-11-25",
@@ -6685,20 +6698,6 @@
    "last_checked": "2026-11-25"
   },
   {
-   "id": "c4ac0f311ff2",
-   "first_seen": "2026-11-25",
-   "last_changed": "2026-11-25",
-   "company": "HSBC",
-   "company_name": "滙豐人壽",
-   "url": "https://www.hsbc.com.hk/content/dam/hsbc/hk/docs/insurance/life/change-of-beneficiary-contingent-policyholder.pdf",
-   "filename": "change-of-beneficiary-contingent-policyholder.pdf",
-   "title": "更改受益人╱認知障礙保障受益人及身故賠償選項",
-   "category": "賠償",
-   "sha256": "cf0d14f9205ed8b47253550b2244803a00a6c80cd661367e292bc0c1a5f62779",
-   "size": 1496246,
-   "last_checked": "2026-11-25"
-  },
-  {
    "id": "d934eb75f6d0",
    "first_seen": "2026-11-25",
    "last_changed": "2026-11-25",
@@ -7271,45 +7270,6 @@
    "sha256": "b142cf67b96bf693aeac3408e874e4135c34b62b4e7799fd218dc97fb8ea239d",
    "size": 2802511,
    "last_checked": "2026-11-25"
-  },
-  {
-   "id": "ea3dd629586c",
-   "first_seen": "2026-11-25",
-   "last_changed": "2026-11-25",
-   "company": "MANULIFE",
-   "company_name": "宏利",
-   "url": "https://www.manulifeim.com.hk/content/dam/wam/hk/en/legacy-forms/mgf-change-receipt-of-annual-report.pdf",
-   "filename": "mgf-change-receipt-of-annual-report.pdf",
-   "title": "宏利環球基金 - 收取年報及未經審核半年報印刷本更新資料表格",
-   "category": "投資相連",
-   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    a",
-   "sha256": null
-  },
-  {
-   "id": "b06d9ab42c05",
-   "first_seen": "2026-11-25",
-   "last_changed": "2026-11-25",
-   "company": "MANULIFE",
-   "company_name": "宏利",
-   "url": "https://www.manulifeim.com.hk/content/dam/wam/hk/en/legacy-forms/maf-change-receipt-of-annual-report.pdf",
-   "filename": "maf-change-receipt-of-annual-report.pdf",
-   "title": "宏利盈進基金SPC － 收取年報及未經審核半年報印刷本更新資料表格",
-   "category": "投資相連",
-   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    a",
-   "sha256": null
-  },
-  {
-   "id": "d76109d16bec",
-   "first_seen": "2026-11-25",
-   "last_changed": "2026-11-25",
-   "company": "MANULIFE",
-   "company_name": "宏利",
-   "url": "https://www.manulifeim.com.hk/content/dam/wam/hk/en/legacy-forms/mhk-change-receipt-of-annual-report.pdf",
-   "filename": "mhk-change-receipt-of-annual-report.pdf",
-   "title": "宏利香港系列 － 收取年報及未經審核半年報印刷本更新資料表格",
-   "category": "投資相連",
-   "error": "Page.evaluate: TypeError: Failed to fetch\n    at e.<computed> (https://www.manulife.com.hk/zh-hk/individual/services/form-library.html:59:18216)\n    a",
-   "sha256": null
   },
   {
    "id": "d018ea859224",
@@ -8194,6 +8154,20 @@
    "last_checked": "2026-11-25"
   },
   {
+   "id": "f3c660a783bb",
+   "first_seen": "2026-11-25",
+   "last_changed": "2026-11-25",
+   "company": "PRU",
+   "company_name": "保誠",
+   "url": "https://www.prudential.com.hk/content/dam/prudential-phkl/pdf/tc/form/policy-service/application-form-for-death-benefit-settlement-option.pdf.coredownload.inline.pdf",
+   "filename": "application-form-for-death-benefit-settlement-option.pdf.coredownload.inline.pdf",
+   "title": "更改身故賠償支付選擇",
+   "category": "保單管理",
+   "sha256": "3d026b8f067643cfb1e0ebf47b8a65c4bbf589cc5bda2e15e7b732a8477dc831",
+   "size": 731527,
+   "last_checked": "2026-11-25"
+  },
+  {
    "id": "ed869c1c8a0e",
    "first_seen": "2026-11-25",
    "last_changed": "2026-11-25",
@@ -8779,20 +8753,6 @@
    "category": "賠償",
    "sha256": "37b1be5b52570728267cd892b1270de918ccc2997b7bec76bf003fdb400e25d1",
    "size": 1923163,
-   "last_checked": "2026-11-25"
-  },
-  {
-   "id": "f3c660a783bb",
-   "first_seen": "2026-11-25",
-   "last_changed": "2026-11-25",
-   "company": "PRU",
-   "company_name": "保誠",
-   "url": "https://www.prudential.com.hk/content/dam/prudential-phkl/pdf/tc/form/policy-service/application-form-for-death-benefit-settlement-option.pdf.coredownload.inline.pdf",
-   "filename": "application-form-for-death-benefit-settlement-option.pdf.coredownload.inline.pdf",
-   "title": "更改身故賠償支付選擇",
-   "category": "賠償",
-   "sha256": "3d026b8f067643cfb1e0ebf47b8a65c4bbf589cc5bda2e15e7b732a8477dc831",
-   "size": 731527,
    "last_checked": "2026-11-25"
   },
   {
