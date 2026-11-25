@@ -575,6 +575,17 @@ def main():
     new_companies = [s["name"] for s in statuses
                      if s["company"] not in prev_companies and s["count"] and not first_run]
     msg = build_message(changes, statuses, first_run, len(forms), os.environ.get("SITE_URL", ""), new_companies)
+    # 檢查「服務對應表」引用的表格是否還在（官網換網址時會失效）
+    svc_file = os.path.join(ROOT, "docs", "services.json")
+    if os.path.exists(svc_file):
+        ids = {f["id"] for f in forms}
+        svc = json.load(open(svc_file, encoding="utf-8"))
+        lost = [f"{co}・{name}" for co, m in svc["map"].items() for name, items in m.items()
+                for fid, *_ in items if fid not in ids]
+        if lost:
+            print("服務對應表找不到的表格：", lost)
+            msg = (msg + "\n\n" if msg else "") + "🧩 <b>服務對應表需要更新</b>（官網可能換了表格網址）：\n" + \
+                "\n".join("• " + html.escape(x) for x in sorted(set(lost)))
     if msg and "--no-notify" not in sys.argv:
         send_telegram(msg)
     if all(not s["ok"] for s in statuses):
