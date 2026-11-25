@@ -241,9 +241,11 @@ function render() {
 }
 
 // 分享：附上公司和表格名稱，方便直接貼給客戶
+// 直接開 Telegram 選聊天對象；同時把內容複製起來，萬一 Telegram 沒開成也能自己貼上
 async function shareText(title, text) {
-  if (navigator.share) { try { await navigator.share({ title, text }); } catch (e) {} return; }
-  try { await navigator.clipboard.writeText(text); toast("已複製，可直接貼上"); } catch (e) { prompt("複製以下內容：", text); }
+  try { await navigator.clipboard.writeText(text); } catch (e) {}
+  window.open("https://t.me/share/url?url=" + encodeURIComponent(text), "_blank", "noopener");
+  toast("正在開啟 Telegram（內容也已複製）");
 }
 function shareOne(id) {
   const f = DATA.forms.find(x => x.id === id); if (!f) return;
