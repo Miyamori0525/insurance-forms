@@ -492,7 +492,7 @@ Promise.all([
   setView(Object.keys(SVC.map).length ? "svc" : "all");
 }).catch(() => { $("meta").textContent = "載入失敗，請檢查網路後重新整理"; });
 
-// 上次檢查官網的時間（每天早上自動檢查一次；就算表格沒變，時間也會更新）
+// 上次檢查官網的時間（每天自動檢查一次；就算表格沒變，時間也會更新）
 function showChecked(at) {
   if (!at) return;
   const t = new Date(at.replace(" ", "T") + ":00+08:00");
@@ -506,7 +506,7 @@ function showChecked(at) {
   $("checked").hidden = false;
   $("checked").innerHTML = `上次檢查官網：<b>${Y}年${M}月${D}日 ${hm}</b>（${when}）<br>`
     + (old ? `<span class="old">已超過一天沒有檢查，表格可能不是最新，請以官網為準</span>`
-           : `每天早上 6 點多自動檢查一次，有新表格或改版會自動更新`);
+           : `每天自動檢查一次，有新表格或改版會自動更新`);
 }
 
 // 深色／淺色模式開關（記在這支手機／這台電腦）
