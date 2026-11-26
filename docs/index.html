@@ -349,6 +349,8 @@ function favBlock(onlyCo) {
 
 // 公司名稱拆成中文／英文兩行，例如「友邦 AIA」
 const splitName = n => { const m = String(n).match(/^(.*?)\s+([A-Za-z].*)$/); return m ? [m[1], m[2]] : [n, ""]; };
+// 換標誌時把這個數字加 1，大家的手機就會重新下載
+const LOGO_V = 2;
 const hueOf = s => [...String(s)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) % 360, 7);
 
 // 依服務查找：選公司 → 選服務 → 顯示表格
@@ -359,7 +361,7 @@ function renderSvc() {
   let html = `<div class="svc-wrap"><div class="svc-left"><div class="step"><span class="num">1</span>選擇保險公司</div><div class="grid">` +
     cos.map(c => {
       const [zh, en] = splitName(coName(c)), n = DATA.forms.filter(f => f.company === c).length;
-      return `<button class="pick ${c === svcCo ? "on" : ""}" data-svcco="${esc(c)}"><span class="mono" style="--h:${hueOf(c)}">${esc([...zh][0] || "")}<img src="logos/${esc(c)}.png" alt="" onerror="this.remove()"></span>` +
+      return `<button class="pick ${c === svcCo ? "on" : ""}" data-svcco="${esc(c)}"><span class="mono" style="--h:${hueOf(c)}">${esc([...zh][0] || "")}<img src="logos/${esc(c)}.png?v=${LOGO_V}" alt="" onerror="this.remove()"></span>` +
         `<span class="nm"><b>${esc(zh)}</b><small>${esc([en, n ? n + " 份表格" : ""].filter(Boolean).join("・"))}</small></span></button>`;
     }).join("") + `</div>`;
   if (svcCo) {
