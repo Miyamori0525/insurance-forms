@@ -67,6 +67,11 @@
   .logo { width:34px; height:34px; color:var(--gold-2); flex:0 0 auto; }
   h1 { margin:0; font-family:var(--serif); font-weight:700; font-size:20px; letter-spacing:1.5px; line-height:1.15; }
   .tagline { font-size:11.5px; letter-spacing:1px; color:rgba(255,255,255,.6); margin-top:2px; }
+  .tagline .dot { display:inline-block; width:6px; height:6px; border-radius:50%; background:#5fbf86; margin:0 5px 1px 0; vertical-align:middle; }
+  .tagline .dot.old { background:#e0a04a; }
+  .checked { text-align:center; color:var(--muted); font-size:12.5px; line-height:1.7; margin:28px 8px 8px; padding-top:16px; border-top:1px solid var(--line); }
+  .checked b { color:var(--ink); font-weight:600; }
+  .checked .old { color:#b5651d; }
   .search { position:relative; display:block; }
   .search svg { position:absolute; left:13px; top:50%; transform:translateY(-50%); color:#8a93a3; width:18px; height:18px; }
   #q { width:100%; font-size:16px; padding:12px 14px 12px 40px; border:1px solid transparent; border-radius:12px; outline:none;
@@ -229,7 +234,7 @@
     <svg class="logo" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M16 3.5 6 7.2v7.6c0 6.4 4.2 10.8 10 13.2 5.8-2.4 10-6.8 10-13.2V7.2z"/><path d="M11.5 13h9M11.5 16.8h9M11.5 20.6h5.5"/>
     </svg>
-    <div><h1>保險表格查詢</h1><div class="tagline">官方表格・每日自動更新</div></div>
+    <div><h1>保險表格查詢</h1><div class="tagline" id="tagline">官方表格・每日自動更新</div></div>
   </div>
   <label class="search">
     <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg>
@@ -247,6 +252,7 @@
   <div id="svc"></div>
   <div class="meta" id="meta">載入中…</div>
   <div id="list"></div>
+  <div class="checked" id="checked" hidden></div>
 </main>
 <div id="toast" role="status"></div>
 <script>
@@ -482,8 +488,26 @@ Promise.all([
   svcName = svcCo && SVC.services.includes(store.get("svcName")) ? store.get("svcName") : null;
   const bad = (d.sources || []).filter(s => !s.ok);
   if (bad.length) $("warn").innerHTML = `<div class="warn">${IC.warn}<span>${bad.map(s => esc(s.name)).join("、")} 最近一次更新失敗，顯示的可能不是最新版本，請以官網為準。</span></div>`;
+  showChecked(d.generated_at);
   setView(Object.keys(SVC.map).length ? "svc" : "all");
 }).catch(() => { $("meta").textContent = "載入失敗，請檢查網路後重新整理"; });
+
+// 上次檢查官網的時間（每天早上自動檢查一次；就算表格沒變，時間也會更新）
+function showChecked(at) {
+  if (!at) return;
+  const t = new Date(at.replace(" ", "T") + ":00+08:00");
+  if (isNaN(t)) return;
+  const day = x => x.toLocaleDateString("en-CA", { timeZone: "Asia/Hong_Kong" });
+  const now = new Date(), y = new Date(now - 864e5);
+  const hm = at.slice(11, 16), [Y, M, D] = at.slice(0, 10).split("-").map(Number);
+  const when = day(t) === day(now) ? "今天" : day(t) === day(y) ? "昨天" : `${M}月${D}日`;
+  const old = now - t > 36 * 3600e3;   // 超過一天半沒檢查，多半是自動更新出了問題
+  $("tagline").innerHTML = `<span class="dot${old ? " old" : ""}"></span>上次檢查：${when} ${hm}`;
+  $("checked").hidden = false;
+  $("checked").innerHTML = `上次檢查官網：<b>${Y}年${M}月${D}日 ${hm}</b>（${when}）<br>`
+    + (old ? `<span class="old">已超過一天沒有檢查，表格可能不是最新，請以官網為準</span>`
+           : `每天早上 6 點多自動檢查一次，有新表格或改版會自動更新`);
+}
 
 // 深色／淺色模式開關（記在這支手機／這台電腦）
 const darkMQ = matchMedia("(prefers-color-scheme: dark)");
