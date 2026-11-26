@@ -97,6 +97,9 @@
   .mono { width:36px; height:36px; border-radius:11px; display:grid; place-items:center; flex:0 0 auto; font-family:var(--serif); font-weight:700;
           font-size:17px; color:hsl(var(--h) 38% 32%); background:hsl(var(--h) 45% 92%); }
   .pick.on .mono { background:rgba(255,255,255,.14); color:#fff; }
+  .mono { position:relative; overflow:hidden; box-shadow:0 0 0 1px var(--line); }
+  .mono img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; background:#fff; }
+  .pick.on .mono { box-shadow:0 0 0 2px rgba(255,255,255,.55); }
   .nm { min-width:0; display:flex; flex-direction:column; line-height:1.25; }
   .nm b { font-weight:700; font-size:15px; }
   .nm small { font-size:11.5px; color:var(--muted); margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -338,7 +341,7 @@ function renderSvc() {
   let html = `<div class="svc-wrap"><div class="svc-left"><div class="step"><span class="num">1</span>選擇保險公司</div><div class="grid">` +
     cos.map(c => {
       const [zh, en] = splitName(coName(c)), n = DATA.forms.filter(f => f.company === c).length;
-      return `<button class="pick ${c === svcCo ? "on" : ""}" data-svcco="${esc(c)}"><span class="mono" style="--h:${hueOf(c)}">${esc([...zh][0] || "")}</span>` +
+      return `<button class="pick ${c === svcCo ? "on" : ""}" data-svcco="${esc(c)}"><span class="mono" style="--h:${hueOf(c)}">${esc([...zh][0] || "")}<img src="logos/${esc(c)}.png" alt="" onerror="this.remove()"></span>` +
         `<span class="nm"><b>${esc(zh)}</b><small>${esc([en, n ? n + " 份表格" : ""].filter(Boolean).join("・"))}</small></span></button>`;
     }).join("") + `</div>`;
   if (svcCo) {
