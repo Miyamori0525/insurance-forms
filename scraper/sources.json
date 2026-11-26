@@ -31,7 +31,7 @@
   },
   {
     "company": "CTF",
-    "name": "周大福人壽",
+    "name": "周大福 CTF",
     "pages": [
       "https://www.ctflife.com.hk/tc/support/download"
     ],
@@ -48,7 +48,7 @@
   },
   {
     "company": "PRU",
-    "name": "保誠",
+    "name": "保誠 Prudential",
     "pages": [
       "https://www.prudential.com.hk/tc/claims-and-services/tools/download-library/"
     ],
@@ -89,7 +89,7 @@
   },
   {
     "company": "MANULIFE",
-    "name": "宏利",
+    "name": "宏利 Manulife",
     "pages": [
       "https://www.manulife.com.hk/zh-hk/individual/services/form-library.html"
     ],
@@ -134,7 +134,7 @@
   },
   {
     "company": "GENERALI",
-    "name": "忠意",
+    "name": "忠意 Generali",
     "pages": [
       "https://www.generali.com.hk/ZH_HK/claims_and_support/form"
     ],
@@ -175,7 +175,7 @@
   },
   {
     "company": "HSBC",
-    "name": "滙豐人壽",
+    "name": "滙豐 HSBC",
     "pages": [
       "https://www.hsbc.com.hk/zh-hk/insurance/forms/"
     ],
@@ -214,7 +214,7 @@
   },
   {
     "company": "FWD",
-    "name": "富衛",
+    "name": "富衛 FWD",
     "pages": [
       {"url": "https://www.fwd.com.hk/zh/support/", "category": "保費繳付"},
       {"url": "https://www.fwd.com.hk/zh/support/policy-management/", "category": "保單管理"},

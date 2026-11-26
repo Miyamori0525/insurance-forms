@@ -362,7 +362,7 @@ function renderSvc() {
     cos.map(c => {
       const [zh, en] = splitName(coName(c)), n = DATA.forms.filter(f => f.company === c).length;
       return `<button class="pick ${c === svcCo ? "on" : ""}" data-svcco="${esc(c)}"><span class="mono" style="--h:${hueOf(c)}">${esc([...zh][0] || "")}<img src="logos/${esc(c)}.png?v=${LOGO_V}" alt="" onerror="this.remove()"></span>` +
-        `<span class="nm"><b>${esc(zh)}</b><small>${esc([en, n ? n + " 份表格" : ""].filter(Boolean).join("・"))}</small></span></button>`;
+        `<span class="nm"><b>${esc(zh)}</b><small>${esc([en, n ? n + " 份" : ""].filter(Boolean).join("・"))}</small></span></button>`;
     }).join("") + `</div>`;
   if (svcCo) {
     html += `<div class="step"><span class="num">2</span>選擇服務</div><div class="grid">` +
